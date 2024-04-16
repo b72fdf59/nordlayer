@@ -1,11 +1,18 @@
 VAR_LIB=/var/lib/nordlayer
-NORDLAYER_RESOLVCONF=/usr/bin/nordlayer-resolvconf
+NORDLAYER_RESOLVCONF=/usr/libexec/nordlayer/nordlayer-resolvconf
+NORDLAYER_DAEMON=/usr/bin/nordlayerd
+NORDLAYER_BINARY=/usr/bin/nordlayer
 
 post_install() {
 
   # Allow the daemon executable to bind to port 500 and administer network
   setcap CAP_NET_BIND_SERVICE,CAP_NET_ADMIN,CAP_NET_RAW+eip /usr/bin/nordlayerd
-  setcap CAP_NET_BIND_SERVICE,CAP_NET_ADMIN,CAP_NET_RAW+eip /usr/bin/nordlayer-openvpn
+  setcap CAP_NET_BIND_SERVICE,CAP_NET_ADMIN,CAP_NET_RAW+eip /usr/libexec/nordlayer/nordlayer-openvpn
+  setcap CAP_NET_ADMIN=+eip /usr/libexec/nordlayer/nordlayer-charon
+  setcap CAP_NET_ADMIN=+eip /usr/libexec/nordlayer/nordlayer-ip
+  setcap CAP_NET_ADMIN,CAP_DAC_OVERRIDE,CAP_SETUID+eip /usr/libexec/nordlayer/nordlayer-resolvconf
+  setcap CAP_NET_ADMIN=+eip /usr/libexec/nordlayer/nordlayer-setcap
+  setcap CAP_NET_ADMIN=+eip /usr/bin/nordlayer
 
  groupadd -r -f nordlayer
  groupadd -r -f nordlayer-resolve
@@ -20,8 +27,21 @@ post_install() {
   chmod 0770 -R ${VAR_LIB}
   chown nordlayer:nordlayer -R ${VAR_LIB}
 
+  # Set permissions nordlayer libexec binaries
+  chown root:nordlayer /usr/libexec/nordlayer/nordlayer*
+  chmod 4750 /usr/libexec/nordlayer/nordlayer*
+
+  # Set permissions nordlayer resolveconf
   chown root:nordlayer-resolve ${NORDLAYER_RESOLVCONF}
   chmod 4750 ${NORDLAYER_RESOLVCONF}
+
+  # Set permissions nordlayer daemon
+  chown root:nordlayer ${NORDLAYER_DAEMON}
+  chmod 4750 ${NORDLAYER_DAEMON}
+  # Set permissions nordlayer daemon
+
+  chown root:nordlayer ${NORDLAYER_BINARY}
+  chmod 4750 ${NORDLAYER_BINARY}
 
   # Reload config
   systemctl daemon-reload
