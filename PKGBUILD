@@ -1,4 +1,5 @@
 # Maintainer: Deividas Gedgaudas <sidicer at gmail dot com>
+# Contributor: Niklas Engvall <niklas at engvall dot it>
 
 pkgname=nordlayer
 pkgver=3.2.2
