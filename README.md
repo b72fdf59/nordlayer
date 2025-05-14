@@ -1,5 +1,5 @@
 # [Nordlayer](https://nordlayer.com) VPN package for Linux (esp [ArchLinux](https://archlinux.org/)) 
-[![AUR version](https://img.shields.io/aur/version/nordlayer)](https://aur.archlinux.org/packages/nordlayer) [![Nordlayer version](https://img.shields.io/badge/nordlayer-3.2.2-green)](https://nordlayer.com/download/linux/)
+[![AUR version](https://img.shields.io/aur/version/nordlayer)](https://aur.archlinux.org/packages/nordlayer) [![Nordlayer version](https://img.shields.io/badge/nordlayer-3.3.2-green)](https://nordlayer.com/download/linux/)
 
 ### Important
 * Original [repository](https://github.com/mearaj/nordlayer) was archived by [mearaj](https://github.com/mearaj).
@@ -24,5 +24,5 @@ git clone https://github.com/trappiz/nordlayer.git
 cd nordlayer
 makepkg -si
 # If 'makepkg -si' fails to install automatically:
-sudo pacman -U nordlayer-3.2.2-0-x86_64.pkg.tar.zst
+sudo pacman -U nordlayer-3.3.2-0-x86_64.pkg.tar.zst
 ```
